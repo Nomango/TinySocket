@@ -216,7 +216,7 @@ tinysocket::Client::~Client()
 {
 }
 
-bool tinysocket::Client::Connect(Protocol protocol, const Address& addr, int backlog)
+bool tinysocket::Client::Connect(Protocol protocol, const Address& addr)
 {
 	if (!Bind(protocol, addr))
 	{
@@ -225,6 +225,7 @@ bool tinysocket::Client::Connect(Protocol protocol, const Address& addr, int bac
 
 	auto& name = addr.GetRawAddr();
 	int ret = connect(socket_, reinterpret_cast<const SOCKADDR*>(&name), sizeof(SOCKADDR));
+
 	return ret != SOCKET_ERROR;
 }
 

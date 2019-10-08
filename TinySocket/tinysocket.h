@@ -81,7 +81,7 @@ namespace tinysocket
 		Client();
 		virtual ~Client();
 
-		bool Connect(Protocol protocol, const Address& addr, int backlog = SOMAXCONN);
+		bool Connect(Protocol protocol, const Address& addr);
 		std::string Receive() const;
 		int Send(const std::string& data) const;
 	};
