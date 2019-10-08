@@ -1,28 +1,29 @@
 #include <iostream>
-#include "tinysocket.h"
+#include <tinysocket.h>
 
 int main()
 {
 	using namespace tinysocket;
 
 	Client client;
-	// 连接服务端
+	// Connect to the test server
 	if (client.Connect(Protocol::TCP, Address::LocalHost(1234)))
 	{
-		std::cout << client.GetAddress().GetIPv4Address() << ":" << client.GetAddress().GetPort() << std::endl;
+		std::cout << "Connect to " << client.GetAddress().GetIPv4Address() << ":" 
+			<< client.GetAddress().GetPort() << " successfully" << std::endl;
 
-		// 发送数据
+		// Send a string message
 		if (client.Send("Hello world") != 0)
 			std::cout << "Send message successfully" << std::endl;
 
-		// 接收数据
+		// Receive a response from local server
 		std::string received = client.Receive();
 		std::cout << "Received message: " << received << std::endl;
 	}
-	// 关闭客户端
+	// close the connection
 	client.Close();
 
-	// 按任意键结束
+	// wait for exit
 	std::cout << "Press Enter to quit!" << std::endl;
 	std::cin.ignore();
 	return 0;
